@@ -7,10 +7,11 @@ public class CreateReservationCommandFromResourceAssembler {
 
     public static CreateReservationCommand toCommandFromResource(CreateReservationResource resource) {
         return new CreateReservationCommand(
-                resource.userId(),
                 resource.caregiverId(),
-                resource.scheduledAt(),
-                resource.totalFare()
+                resource.date(),
+                resource.startTime(),
+                resource.endTime(),
+                resource.paymentMethodId()
         );
     }
 }

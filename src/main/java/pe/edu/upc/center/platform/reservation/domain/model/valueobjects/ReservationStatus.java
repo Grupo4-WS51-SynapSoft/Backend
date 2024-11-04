@@ -1,4 +1,4 @@
-package pe.edu.upc.center.platform.reservation.domain.model.enums;
+package pe.edu.upc.center.platform.reservation.domain.model.valueobjects;
 
 public enum ReservationStatus {
     PENDING,

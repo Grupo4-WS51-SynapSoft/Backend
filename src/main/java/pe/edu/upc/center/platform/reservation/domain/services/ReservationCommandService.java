@@ -5,5 +5,4 @@ import pe.edu.upc.center.platform.reservation.domain.model.commands.CreateReserv
 
 public interface ReservationCommandService {
     Long handle(CreateReservationCommand command);
-    void handle(CancelReservationCommand command);
 }

@@ -2,7 +2,7 @@ package pe.edu.upc.center.platform.reservation.application.internal.queryservice
 
 import org.springframework.stereotype.Service;
 import pe.edu.upc.center.platform.reservation.domain.model.entities.Reservation;
-import pe.edu.upc.center.platform.reservation.domain.model.queries.GetReservationsByUserQuery;
+import pe.edu.upc.center.platform.reservation.domain.model.queries.GetAllReservationsQuery;
 import pe.edu.upc.center.platform.reservation.domain.services.ReservationQueryService;
 import pe.edu.upc.center.platform.reservation.infrastructure.persistence.jpa.repositories.ReservationRepository;
 import pe.edu.upc.center.platform.reservation.domain.model.queries.GetReservationDetailsQuery;
@@ -19,13 +19,12 @@ public class ReservationQueryServiceImpl implements ReservationQueryService {
     }
 
     @Override
-    public List<Reservation> handle(GetReservationsByUserQuery query) {
-        return reservationRepository.findByUserId(query.getUserId());
-    }
-
-    @Override
     public Optional<Reservation> handle(GetReservationDetailsQuery query) {
         return reservationRepository.findById(query.getReservationId());
     }
 
+    @Override
+    public List<Reservation> handle(GetAllReservationsQuery query) {
+        return reservationRepository.findAll();
+    }
 }

@@ -1,33 +1,38 @@
 package pe.edu.upc.center.platform.reservation.domain.model.commands;
 
-import java.time.LocalDateTime;
 
 public class CreateReservationCommand {
-    private Long userId;
     private Long caregiverId;
-    private LocalDateTime scheduledAt;
-    private Double totalFare;
+    private String date;
+    private String startTime;
+    private String endTime;
+    private Long paymentMethodId;
 
-    public CreateReservationCommand(Long userId, Long caregiverId, LocalDateTime scheduledAt, Double totalFare) {
-        this.userId = userId;
+    public CreateReservationCommand(Long caregiverId, String date, String startTime, String endTime, Long paymentMethodId) {
         this.caregiverId = caregiverId;
-        this.scheduledAt = scheduledAt;
-        this.totalFare = totalFare;
-    }
-
-    public Long getUserId() {
-        return userId;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.paymentMethodId = paymentMethodId;
     }
 
     public Long getCaregiverId() {
         return caregiverId;
     }
 
-    public LocalDateTime getScheduledAt() {
-        return scheduledAt;
+    public String getDate() {
+        return date;
     }
 
-    public Double getTotalFare() {
-        return totalFare;
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public Long getPaymentMethodId() {
+        return paymentMethodId;
     }
 }
