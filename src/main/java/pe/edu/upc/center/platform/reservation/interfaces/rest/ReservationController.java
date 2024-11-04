@@ -1,5 +1,6 @@
 package pe.edu.upc.center.platform.reservation.interfaces.rest;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.center.platform.reservation.application.internal.commandservices.ReservationCommandServiceImpl;
@@ -11,6 +12,7 @@ import pe.edu.upc.center.platform.reservation.domain.model.valueobjects.Reservat
 
 @RestController
 @RequestMapping("/api/reservations")
+@Tag(name="Reservations", description = "Reservation Management Endpoints")
 public class ReservationController {
     private final ReservationCommandServiceImpl commandService;
 

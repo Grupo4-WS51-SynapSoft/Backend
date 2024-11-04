@@ -1,6 +1,7 @@
 package pe.edu.upc.center.platform.payment.interfaces.rest;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*",methods = {RequestMethod.POST,RequestMethod.GET,RequestMethod.PUT,RequestMethod.DELETE})
 @RestController
 @RequestMapping(value = "/api/v1/cards", produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name="Cards", description = "Card Management Endpoint")
 public class CardsController {
 
     private final CardQueryService cardQueryService;
