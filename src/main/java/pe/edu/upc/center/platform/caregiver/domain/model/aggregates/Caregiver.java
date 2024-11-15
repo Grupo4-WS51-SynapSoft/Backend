@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import pe.edu.upc.center.platform.caregiver.domain.model.commands.CreateCaregiverCommand;
+import pe.edu.upc.center.platform.caregiver.domain.model.valueobjects.CompleteName;
 import pe.edu.upc.center.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 
 @Entity
@@ -13,7 +14,8 @@ public class Caregiver extends AuditableAbstractAggregateRoot<Caregiver> {
 
     @Getter
     @Column(name = "complete_name",nullable = false)
-    private String completeName;
+    @Embedded
+    private CompleteName completeName;
 
     @Getter
     @Column(name = "age",nullable = false)
@@ -51,7 +53,7 @@ public class Caregiver extends AuditableAbstractAggregateRoot<Caregiver> {
     private String districtsScope;
 
     public Caregiver(CreateCaregiverCommand command) {
-        this.completeName = command.completeName();
+        this.completeName = new CompleteName(command.completeName());
         this.age = command.age();
         this.address = command.address();
         this.caregiverExperience = command.caregiverExperience();
