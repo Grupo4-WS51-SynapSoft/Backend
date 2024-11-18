@@ -1,11 +1,6 @@
-package pe.edu.upc.center.platform.payment.domain.model.entities;
+package pe.edu.upc.center.platform.payment.domain.model.aggregates;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
 import pe.edu.upc.center.platform.payment.domain.model.commands.CreateCardCommand;
 import pe.edu.upc.center.platform.payment.domain.model.commands.UpdateCardCommand;
 import pe.edu.upc.center.platform.payment.domain.model.valueobjects.CardHolder;
@@ -14,8 +9,6 @@ import pe.edu.upc.center.platform.payment.domain.model.valueobjects.ExpirationDa
 import pe.edu.upc.center.platform.payment.domain.model.valueobjects.CardNumber;
 
 import pe.edu.upc.center.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-
-import java.time.YearMonth;
 
 @Entity
 @Table(name = "cards")

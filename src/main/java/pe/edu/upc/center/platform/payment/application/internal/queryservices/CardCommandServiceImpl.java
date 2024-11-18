@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import pe.edu.upc.center.platform.payment.domain.model.commands.CreateCardCommand;
 import pe.edu.upc.center.platform.payment.domain.model.commands.DeleteCardCommand;
 import pe.edu.upc.center.platform.payment.domain.model.commands.UpdateCardCommand;
-import pe.edu.upc.center.platform.payment.domain.model.entities.Card;
+import pe.edu.upc.center.platform.payment.domain.model.aggregates.Card;
 import pe.edu.upc.center.platform.payment.domain.model.valueobjects.CardNumber;
 import pe.edu.upc.center.platform.payment.domain.services.CardCommandService;
 import pe.edu.upc.center.platform.payment.infrastructure.persistence.jpa.repositories.CardRepository;
