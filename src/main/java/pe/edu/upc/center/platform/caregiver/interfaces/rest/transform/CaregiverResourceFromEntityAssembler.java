@@ -5,7 +5,7 @@ import pe.edu.upc.center.platform.caregiver.interfaces.rest.resources.CaregiverR
 
 public class CaregiverResourceFromEntityAssembler {
     public static CaregiverResource toResourceFromEntity(Caregiver entity) {
-        return new CaregiverResource(entity.getId(), entity.getCompleteName(), entity.getAge(), entity.getAddress(), entity.getCaregiverExperience(),
+        return new CaregiverResource(entity.getId(), entity.getCompleteName().completeName(), entity.getAge(), entity.getAddress(), entity.getCaregiverExperience(),
                 entity.getCompletedServices(), entity.getBiography(), entity.getProfileImage(), entity.getFarePerHour(),
                 entity.getDistrictsScope());
     }
