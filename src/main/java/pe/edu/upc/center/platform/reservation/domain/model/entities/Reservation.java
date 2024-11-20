@@ -44,16 +44,16 @@ public class Reservation extends AuditableAbstractAggregateRoot<Reservation> {
     @Column(nullable = false)
     private Date updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "card_id", nullable = false)
-    private Card paymentCard;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "card_id", nullable = false)
+    private String paymentCard;
 
     public Reservation() {
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
 
-    public Reservation(Long caregiverId, String date, String startTime, String endTime, Card paymentCard) {
+    public Reservation(Long caregiverId, String date, String startTime, String endTime, String paymentCard) {
         this.caregiverId = caregiverId;
         this.date = date;
         this.startTime = startTime;
