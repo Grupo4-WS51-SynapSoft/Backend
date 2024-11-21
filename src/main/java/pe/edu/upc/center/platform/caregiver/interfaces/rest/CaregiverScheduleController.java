@@ -5,19 +5,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.center.platform.caregiver.domain.model.aggregates.Caregiver;
 import pe.edu.upc.center.platform.caregiver.domain.model.commands.*;
 import pe.edu.upc.center.platform.caregiver.domain.model.entities.CaregiverSchedule;
 import pe.edu.upc.center.platform.caregiver.domain.model.queries.GetAllCaregiverScheduleByCaregiverIdQuery;
-import pe.edu.upc.center.platform.caregiver.domain.model.queries.GetCaregiverByIdQuery;
-import pe.edu.upc.center.platform.caregiver.domain.model.queries.GetCaregiverByLocationQuery;
 import pe.edu.upc.center.platform.caregiver.domain.services.CaregiverCommandService;
 import pe.edu.upc.center.platform.caregiver.domain.services.CaregiverQueryService;
 import pe.edu.upc.center.platform.caregiver.interfaces.rest.resources.CaregiverScheduleResource;
 import pe.edu.upc.center.platform.caregiver.interfaces.rest.resources.CreateCaregiverScheduleResource;
 import pe.edu.upc.center.platform.caregiver.interfaces.rest.resources.UpdateCaregiverScheduleResource;
 import pe.edu.upc.center.platform.caregiver.interfaces.rest.transform.*;
-import pe.edu.upc.center.platform.payment.domain.model.commands.DeleteCardCommand;
 
 import java.util.List;
 
