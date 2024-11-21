@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.center.platform.payment.domain.model.commands.DeleteCardCommand;
 import pe.edu.upc.center.platform.payment.domain.model.queries.GetAllCardsQuery;
 import pe.edu.upc.center.platform.payment.domain.model.queries.GetCardByIdQuery;
+import pe.edu.upc.center.platform.payment.domain.model.queries.GetCardByUserId;
 import pe.edu.upc.center.platform.payment.domain.services.CardCommandService;
 import pe.edu.upc.center.platform.payment.domain.services.CardQueryService;
 import pe.edu.upc.center.platform.payment.interfaces.rest.resources.CardResource;
@@ -61,7 +62,7 @@ public class CardsController {
         return ResponseEntity.ok(cardResources);
     }
 
-    @GetMapping("/{cardId}")
+    @GetMapping("/card/{cardId}")
     public ResponseEntity<CardResource> getCardById(@PathVariable Long cardId) {
         var getCardByIdQuery = new GetCardByIdQuery(cardId);
         var optionalCard = this.cardQueryService.handle(getCardByIdQuery);
@@ -69,6 +70,17 @@ public class CardsController {
             return ResponseEntity.badRequest().build();
         }
         var cardResource = CardResourceFromEntityAssembler.toResourceFromEntity(optionalCard.get());
+        return ResponseEntity.ok(cardResource);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<CardResource>> getCardByUserId(@PathVariable Long userId) {
+        var getCardByIdQuery = new GetCardByUserId(userId);
+        var optionalCard = this.cardQueryService.handle(getCardByIdQuery);
+        if(optionalCard.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+        var cardResource = optionalCard.get().stream().map(CardResourceFromEntityAssembler::toResourceFromEntity).toList();
         return ResponseEntity.ok(cardResource);
     }
 

@@ -6,7 +6,7 @@ import pe.edu.upc.center.platform.payment.interfaces.rest.resources.CreateCardRe
 
 public class CreateCardCommandFromResourceAssembler {
     public static CreateCardCommand toCommandFromResource(CreateCardResource resource) {
-        return new CreateCardCommand(resource.number(),resource.holder(),resource.year(),resource.month(),resource.code());
+        return new CreateCardCommand(resource.userId(), resource.number(),resource.holder(),resource.year(),resource.month(),resource.code());
     }
 }
 
