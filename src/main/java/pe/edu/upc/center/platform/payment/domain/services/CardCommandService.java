@@ -3,7 +3,7 @@ package pe.edu.upc.center.platform.payment.domain.services;
 import pe.edu.upc.center.platform.payment.domain.model.commands.CreateCardCommand;
 import pe.edu.upc.center.platform.payment.domain.model.commands.DeleteCardCommand;
 import pe.edu.upc.center.platform.payment.domain.model.commands.UpdateCardCommand;
-import pe.edu.upc.center.platform.payment.domain.model.entities.Card;
+import pe.edu.upc.center.platform.payment.domain.model.aggregates.Card;
 
 
 import java.util.Optional;

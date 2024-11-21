@@ -1,11 +1,6 @@
-package pe.edu.upc.center.platform.payment.domain.model.entities;
+package pe.edu.upc.center.platform.payment.domain.model.aggregates;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
 import pe.edu.upc.center.platform.payment.domain.model.commands.CreateCardCommand;
 import pe.edu.upc.center.platform.payment.domain.model.commands.UpdateCardCommand;
 import pe.edu.upc.center.platform.payment.domain.model.valueobjects.CardHolder;
@@ -14,8 +9,6 @@ import pe.edu.upc.center.platform.payment.domain.model.valueobjects.ExpirationDa
 import pe.edu.upc.center.platform.payment.domain.model.valueobjects.CardNumber;
 
 import pe.edu.upc.center.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-
-import java.time.YearMonth;
 
 @Entity
 @Table(name = "cards")
@@ -30,6 +23,9 @@ public class Card extends AuditableAbstractAggregateRoot<Card> {
         @AttributeOverride(name="cardNumber", column = @Column(name = "card_number", length = 16,nullable = false)),
     })
     private CardNumber cardNumber;
+
+    @Column(nullable = false)
+    private Long tutorId;
 
     @Embedded
     @AttributeOverrides({
@@ -56,7 +52,7 @@ public class Card extends AuditableAbstractAggregateRoot<Card> {
     }
 
     public Card(String number, String holder,int year, int month, String code) {
-//        this.cardId = null;
+//      this.cardId = null;
         this.cardNumber = new CardNumber(number);
         this.cardHolder = new CardHolder(holder);
         this.expirationDate = new ExpirationDate(year, month);
@@ -103,7 +99,9 @@ public class Card extends AuditableAbstractAggregateRoot<Card> {
         this.cardHolder= new CardHolder(command.holder());
         this.expirationDate=new ExpirationDate(command.year(), command.month());
         this.cvv=new Cvv(command.code());
+        this.tutorId = command.tutorId();
     }
+
 
     public Card updateInformation(UpdateCardCommand command) {
         this.cardNumber= new CardNumber(command.number());

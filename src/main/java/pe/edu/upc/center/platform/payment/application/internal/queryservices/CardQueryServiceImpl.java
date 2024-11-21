@@ -1,7 +1,7 @@
 package pe.edu.upc.center.platform.payment.application.internal.queryservices;
 
 import org.springframework.stereotype.Service;
-import pe.edu.upc.center.platform.payment.domain.model.entities.Card;
+import pe.edu.upc.center.platform.payment.domain.model.aggregates.Card;
 import pe.edu.upc.center.platform.payment.domain.model.queries.GetAllCardsQuery;
 import pe.edu.upc.center.platform.payment.domain.model.queries.GetCardByCardNumberQuery;
 import pe.edu.upc.center.platform.payment.domain.model.queries.GetCardByIdQuery;
