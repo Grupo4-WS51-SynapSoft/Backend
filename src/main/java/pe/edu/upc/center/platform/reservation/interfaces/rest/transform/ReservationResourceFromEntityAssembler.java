@@ -1,6 +1,6 @@
 package pe.edu.upc.center.platform.reservation.interfaces.rest.transform;
 
-import pe.edu.upc.center.platform.reservation.domain.model.entities.Reservation;
+import pe.edu.upc.center.platform.reservation.domain.model.aggregates.Reservation;
 import pe.edu.upc.center.platform.reservation.interfaces.rest.resources.ReservationResource;
 
 import java.text.SimpleDateFormat;
@@ -12,14 +12,13 @@ public class ReservationResourceFromEntityAssembler {
     public static ReservationResource toResourceFromEntity(Reservation entity) {
         return new ReservationResource(
                 entity.getId(),
-                entity.getCaregiverId(),
+                entity.getCaregiver(),
+                entity.getTutorId(),
                 entity.getDate(),
                 entity.getStartTime(),
                 entity.getEndTime(),
-                entity.getPaymentMethodId(),
-                entity.getStatus(),
-                dateFormat.format(entity.getCreatedAt()),
-                dateFormat.format(entity.getUpdatedAt())
+                entity.getStatus().name(),
+                entity.getTotalAmount()
         );
     }
 }

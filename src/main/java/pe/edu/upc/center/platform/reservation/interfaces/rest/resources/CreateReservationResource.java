@@ -6,8 +6,9 @@ import java.util.Date;
 
 public record CreateReservationResource(
         Long caregiverId,
-        String date,
+        Long tutorId,
+        LocalDateTime date,
         String startTime,
         String endTime,
-        Long paymentMethodId
+        double totalAmount
 ) {}

@@ -1,41 +1,46 @@
 package pe.edu.upc.center.platform.reservation.application.internal.commandservices;
 
 import org.springframework.stereotype.Service;
+import pe.edu.upc.center.platform.card.application.internal.outboundservices.acl.ExternalCaregiverService;
+import pe.edu.upc.center.platform.caregiver.domain.model.aggregates.Caregiver;
 import pe.edu.upc.center.platform.reservation.domain.model.commands.CreateReservationCommand;
 import pe.edu.upc.center.platform.reservation.domain.model.commands.UpdateReservationStatusCommand;
-import pe.edu.upc.center.platform.reservation.domain.model.entities.Reservation;
+import pe.edu.upc.center.platform.reservation.domain.model.aggregates.Reservation;
+import pe.edu.upc.center.platform.reservation.domain.model.valueobjects.ReservationStatus;
+import pe.edu.upc.center.platform.reservation.domain.services.ReservationCommandService;
 import pe.edu.upc.center.platform.reservation.infrastructure.persistence.jpa.repositories.ReservationRepository;
+import pe.edu.upc.center.platform.tutor.domain.model.aggregates.Tutor;
 
 
 @Service
-public class ReservationCommandServiceImpl {
+public class ReservationCommandServiceImpl implements ReservationCommandService {
     private final ReservationRepository reservationRepository;
+    private final ExternalCaregiverService externalCaregiverService;
 
-    public ReservationCommandServiceImpl(ReservationRepository reservationRepository) {
+    public ReservationCommandServiceImpl(ReservationRepository reservationRepository, ExternalCaregiverService externalCaregiverService) {
         this.reservationRepository = reservationRepository;
+        this.externalCaregiverService = externalCaregiverService;
     }
 
-    public Long handle(CreateReservationCommand command) {
-        Reservation reservation = new Reservation(
-                command.getCaregiverId(),
-                command.getDate(),
-                command.getStartTime(),
-                command.getEndTime(),
-                command.getPaymentMethodId()
-        );
-        reservationRepository.save(reservation);
-        return reservation.getId();
+    public Reservation handle(CreateReservationCommand command) {
+
+        Caregiver caregiver = externalCaregiverService.fetchCaregiverById(command.caregiverId())
+                .orElseThrow(() -> new IllegalArgumentException("Caregiver not found"));
+
+        Reservation reservation = new Reservation(command, caregiver);
+        return reservationRepository.save(reservation);
     }
 
-    public void handle(UpdateReservationStatusCommand command) {
-        Reservation reservation = reservationRepository.findById(command.getReservationId())
+    public Reservation handle(UpdateReservationStatusCommand command) {
+        Reservation reservation = reservationRepository.findById(command.reservationId())
                 .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
-        reservation.setStatus(command.getStatus());
-        reservation.update();
-        reservationRepository.save(reservation);
+
+        reservation.setStatus(ReservationStatus.valueOf(command.status()));
+        return reservationRepository.save(reservation);
     }
 
     public Reservation findById(Long id) {
         return reservationRepository.findById(id).orElse(null);
     }
 }
+
