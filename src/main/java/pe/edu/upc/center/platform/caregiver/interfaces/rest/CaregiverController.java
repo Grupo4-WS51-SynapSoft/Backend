@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.center.platform.caregiver.domain.model.aggregates.Caregiver;
+import pe.edu.upc.center.platform.caregiver.domain.model.queries.GetAllCaregiverQuery;
 import pe.edu.upc.center.platform.caregiver.domain.model.queries.GetCaregiverByIdQuery;
 import pe.edu.upc.center.platform.caregiver.domain.model.queries.GetCaregiverByLocationQuery;
 import pe.edu.upc.center.platform.caregiver.domain.services.CaregiverCommandService;
@@ -21,7 +22,7 @@ import pe.edu.upc.center.platform.caregiver.interfaces.rest.transform.UpdateCare
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE})
+@CrossOrigin(origins = "*", methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH})
 @RestController
 @RequestMapping(value = "/api/v1/caregiver", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "Caregiver", description = "Caregiver Management Endpoints")
@@ -70,6 +71,18 @@ public class CaregiverController {
                 .orElseThrow(() -> new IllegalArgumentException("Caregiver not found"));
 
         return new ResponseEntity<>(CaregiverResourceFromEntityAssembler.toResourceFromEntity(caregiver), HttpStatus.OK);
+    }
+
+    @GetMapping()
+    ResponseEntity<List<CaregiverResource>> getAllCaregiver() {
+        var getAllCaregiverQuery = new GetAllCaregiverQuery();
+
+
+        List<CaregiverResource> caregiverResources = caregiverQueryService.handle(getAllCaregiverQuery)
+                .stream().map(CaregiverResourceFromEntityAssembler::toResourceFromEntity)
+                .toList();
+
+        return new ResponseEntity<>(caregiverResources, HttpStatus.OK);
     }
 
     @GetMapping("district/{district}")

@@ -17,6 +17,7 @@ import pe.edu.upc.center.platform.caregiver.interfaces.rest.resources.CaregiverS
 import pe.edu.upc.center.platform.caregiver.interfaces.rest.resources.CreateCaregiverScheduleResource;
 import pe.edu.upc.center.platform.caregiver.interfaces.rest.resources.UpdateCaregiverScheduleResource;
 import pe.edu.upc.center.platform.caregiver.interfaces.rest.transform.*;
+import pe.edu.upc.center.platform.payment.domain.model.commands.DeleteCardCommand;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class CaregiverScheduleController {
     }
 
     @PostMapping
-    ResponseEntity<CaregiverScheduleResource> createCaregiverSchedule(CreateCaregiverScheduleResource resource) {
+    ResponseEntity<CaregiverScheduleResource> createCaregiverSchedule(@RequestBody CreateCaregiverScheduleResource resource) {
         var createCaregiverScheduleCommand = CreateCaregiverScheduleCommandFromResourceAssembler.toCommandFromResource(resource);
 
         CaregiverSchedule caregiverSchedule = caregiverCommandService.handle(createCaregiverScheduleCommand);
@@ -43,7 +44,7 @@ public class CaregiverScheduleController {
     }
 
     @PutMapping
-    ResponseEntity<CaregiverScheduleResource> updateCaregiverSchedule(UpdateCaregiverScheduleResource resource) {
+    ResponseEntity<CaregiverScheduleResource> updateCaregiverSchedule(@RequestBody UpdateCaregiverScheduleResource resource) {
         var updateCaregiverBiographyCommand = UpdateCaregiverScheduleCommandFromResourceAssembler.toCommandFromResource(resource);
 
         CaregiverSchedule caregiverSchedule = caregiverCommandService.handle(updateCaregiverBiographyCommand).orElseThrow();
@@ -60,6 +61,14 @@ public class CaregiverScheduleController {
                 .stream()
                 .map(CaregiverScheduleResourceFromEntityAssembler::toResourceFromEntity)
                 .toList(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{caregiverScheduleId}")
+    ResponseEntity<?> deleteCaregiverSchedule(@PathVariable Long caregiverScheduleId) {
+        var deleteCaregiverScheduleCommand = new DeleteCaregiverScheduleCommand(caregiverScheduleId);
+        this.caregiverCommandService.handle(deleteCaregiverScheduleCommand);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

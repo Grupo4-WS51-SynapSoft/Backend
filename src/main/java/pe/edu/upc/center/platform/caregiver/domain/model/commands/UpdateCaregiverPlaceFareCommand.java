@@ -4,5 +4,5 @@ import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
-public record UpdateCaregiverPlaceFareCommand(Long caregiverId, Long farePerHour, String districtsScope) {
+public record UpdateCaregiverPlaceFareCommand(Long caregiverId, Double farePerHour, String districtsScope) {
 }
