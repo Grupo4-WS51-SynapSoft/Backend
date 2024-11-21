@@ -3,6 +3,7 @@ package pe.edu.upc.center.platform.caregiver.application.internal.queryservices;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.center.platform.caregiver.domain.model.aggregates.Caregiver;
 import pe.edu.upc.center.platform.caregiver.domain.model.entities.CaregiverSchedule;
+import pe.edu.upc.center.platform.caregiver.domain.model.queries.GetAllCaregiverQuery;
 import pe.edu.upc.center.platform.caregiver.domain.model.queries.GetAllCaregiverScheduleByCaregiverIdQuery;
 import pe.edu.upc.center.platform.caregiver.domain.model.queries.GetCaregiverByIdQuery;
 import pe.edu.upc.center.platform.caregiver.domain.model.queries.GetCaregiverByLocationQuery;
@@ -22,6 +23,11 @@ public class CaregiverQueryServiceImpl implements CaregiverQueryService {
     public CaregiverQueryServiceImpl(CaregiverRepository caregiverRepository, CaregiverScheduleRepository caregiverScheduleRepository) {
         this.caregiverRepository = caregiverRepository;
         this.caregiverScheduleRepository = caregiverScheduleRepository;
+    }
+
+    @Override
+    public List<Caregiver> handle(GetAllCaregiverQuery query) {
+        return caregiverRepository.findAll();
     }
 
     @Override

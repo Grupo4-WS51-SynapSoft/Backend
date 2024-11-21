@@ -7,6 +7,6 @@ import pe.edu.upc.center.platform.caregiver.interfaces.rest.resources.CaregiverS
 
 public class CaregiverScheduleResourceFromEntityAssembler {
     public static CaregiverScheduleResource toResourceFromEntity(CaregiverSchedule entity) {
-        return new CaregiverScheduleResource(entity.getWeekDay(), entity.getStartHour(), entity.getEndHour());
+        return new CaregiverScheduleResource(entity.getId(), entity.getWeekDay(), entity.getStartHour(), entity.getEndHour());
     }
 }

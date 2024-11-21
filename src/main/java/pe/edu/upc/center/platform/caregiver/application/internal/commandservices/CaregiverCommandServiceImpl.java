@@ -90,4 +90,17 @@ public class CaregiverCommandServiceImpl implements CaregiverCommandService {
 
         return optionalCaregiverSchedule;
     }
+
+    @Override
+    public void handle(DeleteCaregiverScheduleCommand command) {
+        if (!this.caregiverScheduleRepository.existsById(command.caregiverScheduleId())) {
+            throw new IllegalArgumentException("Caregiver Schedule with id " + command.caregiverScheduleId() + " does not exist");
+        }
+
+        try {
+            this.caregiverScheduleRepository.deleteById(command.caregiverScheduleId());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error while deleting caregiver schedule: " + e.getMessage());
+        }
+    }
 }

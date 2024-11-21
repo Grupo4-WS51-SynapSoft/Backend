@@ -24,6 +24,9 @@ public class Card extends AuditableAbstractAggregateRoot<Card> {
     })
     private CardNumber cardNumber;
 
+    @Column(nullable = false)
+    private Long tutorId;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name="cardHolder", column = @Column(name = "card_holder", length = 50,nullable = false)),
@@ -49,7 +52,7 @@ public class Card extends AuditableAbstractAggregateRoot<Card> {
     }
 
     public Card(String number, String holder,int year, int month, String code) {
-//        this.cardId = null;
+//      this.cardId = null;
         this.cardNumber = new CardNumber(number);
         this.cardHolder = new CardHolder(holder);
         this.expirationDate = new ExpirationDate(year, month);
@@ -96,7 +99,9 @@ public class Card extends AuditableAbstractAggregateRoot<Card> {
         this.cardHolder= new CardHolder(command.holder());
         this.expirationDate=new ExpirationDate(command.year(), command.month());
         this.cvv=new Cvv(command.code());
+        this.tutorId = command.tutorId();
     }
+
 
     public Card updateInformation(UpdateCardCommand command) {
         this.cardNumber= new CardNumber(command.number());

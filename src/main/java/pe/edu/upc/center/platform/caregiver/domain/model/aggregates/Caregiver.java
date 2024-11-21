@@ -35,7 +35,7 @@ public class Caregiver extends AuditableAbstractAggregateRoot<Caregiver> {
 
     @Getter
     @Setter
-    @Column(name = "biography",nullable = false)
+    @Column(name = "biography", columnDefinition = "TEXT" , nullable = false)
     private String biography;
 
     @Getter
@@ -45,7 +45,7 @@ public class Caregiver extends AuditableAbstractAggregateRoot<Caregiver> {
     @Getter
     @Setter
     @Column(name = "fare_per_hour",nullable = false)
-    private Long farePerHour;
+    private Double farePerHour;
 
     @Getter
     @Setter
