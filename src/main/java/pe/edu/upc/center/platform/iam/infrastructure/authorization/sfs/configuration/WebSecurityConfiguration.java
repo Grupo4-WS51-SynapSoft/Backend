@@ -97,6 +97,7 @@ public class WebSecurityConfiguration {
             cors.setAllowedHeaders(List.of("*"));
             return cors;
         } ));
+
         http.csrf(csrfConfigurer -> csrfConfigurer.disable())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedRequestHandler))
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -107,6 +108,7 @@ public class WebSecurityConfiguration {
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated());
+
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authorizationRequestFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
