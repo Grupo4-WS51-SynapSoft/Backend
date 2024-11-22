@@ -3,15 +3,11 @@ package pe.edu.upc.center.platform.reservation.domain.model.aggregates;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import pe.edu.upc.center.platform.caregiver.domain.model.aggregates.Caregiver;
 import pe.edu.upc.center.platform.reservation.domain.model.commands.CreateReservationCommand;
 import pe.edu.upc.center.platform.reservation.domain.model.valueobjects.ReservationStatus;
 import pe.edu.upc.center.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import pe.edu.upc.center.platform.shared.domain.model.entities.AuditableModel;
-import pe.edu.upc.center.platform.tutor.domain.model.aggregates.Tutor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @Entity
