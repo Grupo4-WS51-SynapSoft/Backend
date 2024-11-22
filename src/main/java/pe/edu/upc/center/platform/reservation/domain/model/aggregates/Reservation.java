@@ -6,6 +6,7 @@ import lombok.Setter;
 import pe.edu.upc.center.platform.caregiver.domain.model.aggregates.Caregiver;
 import pe.edu.upc.center.platform.reservation.domain.model.commands.CreateReservationCommand;
 import pe.edu.upc.center.platform.reservation.domain.model.valueobjects.ReservationStatus;
+import pe.edu.upc.center.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import pe.edu.upc.center.platform.shared.domain.model.entities.AuditableModel;
 import pe.edu.upc.center.platform.tutor.domain.model.aggregates.Tutor;
 
@@ -17,16 +18,14 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "reservations")
-public class Reservation extends AuditableModel {
-
+public class Reservation extends AuditableAbstractAggregateRoot<Reservation> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "caregiver_id", nullable = false)
-    private Caregiver caregiver;
+    @Column(nullable = false)
+    private Long caregiverId;
 
     @Column(nullable = false)
     private Long tutorId;
@@ -47,8 +46,8 @@ public class Reservation extends AuditableModel {
     @Column(nullable = false)
     private ReservationStatus status = ReservationStatus.PENDING;
 
-    public Reservation(CreateReservationCommand command, Caregiver caregiver) {
-        this.caregiver = caregiver;
+    public Reservation(CreateReservationCommand command) {
+        this.caregiverId = command.caregiverId();
         this.tutorId = command.tutorId();
         this.date = command.date();
         this.startTime = command.startTime();
@@ -57,4 +56,5 @@ public class Reservation extends AuditableModel {
     }
 
     public Reservation() {}
+
 }

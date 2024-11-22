@@ -40,6 +40,4 @@ public class CardQueryServiceImpl implements CardQueryService {
     public Optional<List<Card>> handle(GetCardByUserId query) {
         return this.cardRepository.getAllByUserId(query.userId());
     }
-
-
 }

@@ -1,5 +1,6 @@
 package pe.edu.upc.center.platform.caregiver.application.internal.queryservices;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.center.platform.caregiver.domain.model.aggregates.Caregiver;
 import pe.edu.upc.center.platform.caregiver.domain.model.entities.CaregiverSchedule;
@@ -46,6 +47,8 @@ public class CaregiverQueryServiceImpl implements CaregiverQueryService {
 
     @Override
     public List<Caregiver> handle(GetCaregiverByLocationQuery query) {
-        return caregiverRepository.findByDistrictScope(query.district());
+        Sort sort = query.sort().isEmpty() ?  Sort.by(Sort.Order.asc("completeName")) : Sort.by(Sort.Order.desc(query.sort()));
+        String district = query.district().isEmpty() ? "" : query.district();
+        return caregiverRepository.findByDistrictScope(district, sort);
     }
 }

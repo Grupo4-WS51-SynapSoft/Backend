@@ -2,7 +2,8 @@ package pe.edu.upc.center.platform.reservation.domain.model.valueobjects;
 
 public enum ReservationStatus {
     PENDING,
-    CONFIRMED,
+    ACCEPTED,
+    IN_PROGRESS,
     COMPLETED,
     CANCELLED
 }

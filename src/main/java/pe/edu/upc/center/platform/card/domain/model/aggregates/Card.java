@@ -8,22 +8,24 @@ import pe.edu.upc.center.platform.card.domain.model.valueobjects.Cvv;
 import pe.edu.upc.center.platform.card.domain.model.valueobjects.ExpirationDate;
 import pe.edu.upc.center.platform.card.domain.model.valueobjects.CardNumber;
 
+import pe.edu.upc.center.platform.payment.domain.model.aggregates.Payment;
 import pe.edu.upc.center.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "cards")
 public class Card extends AuditableAbstractAggregateRoot<Card> {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long cardId;
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name="cardNumber", column = @Column(name = "card_number", length = 16,nullable = false)),
     })
     private CardNumber cardNumber;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private Long userId;
 
     @Embedded
@@ -46,17 +48,18 @@ public class Card extends AuditableAbstractAggregateRoot<Card> {
     })
     private Cvv cvv;
 
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Payment> payments = new ArrayList<>();
+
     public Card() {
 
     }
 
     public Card(String number, String holder,int year, int month, String code) {
-//        this.cardId = null;
         this.cardNumber = new CardNumber(number);
         this.cardHolder = new CardHolder(holder);
         this.expirationDate = new ExpirationDate(year, month);
         this.cvv = new Cvv(code);
-
     }
 
     public void updateCardNumber(String number) {

@@ -10,7 +10,7 @@ import java.util.Date;
 
 public record ReservationResource(
         Long id,
-        Caregiver caregiverId,
+        Long caregiverId,
         Long tutorId,
         LocalDateTime date,
         String startTime,

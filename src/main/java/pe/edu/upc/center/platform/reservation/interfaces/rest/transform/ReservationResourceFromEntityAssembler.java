@@ -7,12 +7,10 @@ import java.text.SimpleDateFormat;
 
 public class ReservationResourceFromEntityAssembler {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
     public static ReservationResource toResourceFromEntity(Reservation entity) {
         return new ReservationResource(
                 entity.getId(),
-                entity.getCaregiver(),
+                entity.getCaregiverId(),
                 entity.getTutorId(),
                 entity.getDate(),
                 entity.getStartTime(),

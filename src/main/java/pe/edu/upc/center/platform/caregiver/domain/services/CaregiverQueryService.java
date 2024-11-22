@@ -16,3 +16,4 @@ public interface CaregiverQueryService {
     Optional<Caregiver> handle(GetCaregiverByIdQuery query);
     List<Caregiver> handle(GetCaregiverByLocationQuery query);
 }
+

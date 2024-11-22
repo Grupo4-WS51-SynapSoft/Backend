@@ -22,9 +22,9 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "*", methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH})
-@RequestMapping("/api/reservations")
+@RequestMapping("/api/v1/reservations")
 @Tag(name="Reservations", description = "Reservation Management Endpoints")
+@CrossOrigin(origins = "*", methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.PATCH})
 public class ReservationController {
     private final ReservationCommandService reservationCommandService;
     private final ReservationQueryService reservationQueryService;

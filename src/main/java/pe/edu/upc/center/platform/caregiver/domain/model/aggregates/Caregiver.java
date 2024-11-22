@@ -6,7 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 import pe.edu.upc.center.platform.caregiver.domain.model.commands.CreateCaregiverCommand;
 import pe.edu.upc.center.platform.caregiver.domain.model.valueobjects.CompleteName;
+import pe.edu.upc.center.platform.reservation.domain.model.aggregates.Reservation;
 import pe.edu.upc.center.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "Caregiver")
@@ -51,6 +56,9 @@ public class Caregiver extends AuditableAbstractAggregateRoot<Caregiver> {
     @Setter
     @Column(name = "district_scope",nullable = false)
     private String districtsScope;
+
+//    @OneToMany(mappedBy = "caregiver", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Reservation> reservations = new ArrayList<>();
 
     public Caregiver(CreateCaregiverCommand command) {
         this.completeName = new CompleteName(command.completeName());

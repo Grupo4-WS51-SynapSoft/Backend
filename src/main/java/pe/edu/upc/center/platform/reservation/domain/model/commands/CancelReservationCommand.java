@@ -4,7 +4,6 @@ public class CancelReservationCommand {
     private Long reservationId;
 
     public CancelReservationCommand(Long reservationId) {
-
         this.reservationId = reservationId;
     }
 

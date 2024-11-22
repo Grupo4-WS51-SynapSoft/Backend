@@ -85,10 +85,9 @@ public class CaregiverController {
         return new ResponseEntity<>(caregiverResources, HttpStatus.OK);
     }
 
-    @GetMapping("district/{district}")
-    ResponseEntity<List<CaregiverResource>> getCaregiverByLocation(@PathVariable String district) {
-        var getCaregiverByLocationQuery = new GetCaregiverByLocationQuery(district);
-
+    @GetMapping("/search")
+    ResponseEntity<List<CaregiverResource>> getCaregiverByLocation(@RequestParam(required = false)  String district, @RequestParam(required = false)  String sort) {
+        var getCaregiverByLocationQuery = new GetCaregiverByLocationQuery(district, sort);
 
         List<CaregiverResource> caregiverResources = caregiverQueryService.handle(getCaregiverByLocationQuery)
                 .stream().map(CaregiverResourceFromEntityAssembler::toResourceFromEntity)
@@ -97,3 +96,4 @@ public class CaregiverController {
         return new ResponseEntity<>(caregiverResources, HttpStatus.OK);
     }
 }
+

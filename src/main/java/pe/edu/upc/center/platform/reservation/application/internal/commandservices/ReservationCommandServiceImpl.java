@@ -27,7 +27,7 @@ public class ReservationCommandServiceImpl implements ReservationCommandService 
         Caregiver caregiver = externalCaregiverService.fetchCaregiverById(command.caregiverId())
                 .orElseThrow(() -> new IllegalArgumentException("Caregiver not found"));
 
-        Reservation reservation = new Reservation(command, caregiver);
+        Reservation reservation = new Reservation(command);
         return reservationRepository.save(reservation);
     }
 

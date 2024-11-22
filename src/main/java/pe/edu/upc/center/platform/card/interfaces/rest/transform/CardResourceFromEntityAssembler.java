@@ -8,3 +8,4 @@ public class CardResourceFromEntityAssembler {
         return  new CardResource(entity.getId(),entity.getCardNumber(),entity.getCardHolder(),entity.getExpirationYear(),entity.getExpirationMonth(),entity.getCvv());
     }
 }
+
