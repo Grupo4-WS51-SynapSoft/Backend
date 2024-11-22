@@ -29,7 +29,7 @@ public class PaymentsController {
         this.paymentCommandService = paymentCommandService;
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/{profileId}")
     ResponseEntity<List<PaymentResource>> handle(@PathVariable Long userId) {
         GetPaymentByUserQuery getPaymentByUserQuery = new GetPaymentByUserQuery(userId);
         var payments = this.paymentQueryService.handle(getPaymentByUserQuery);

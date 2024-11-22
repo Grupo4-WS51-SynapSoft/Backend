@@ -5,7 +5,7 @@ import pe.edu.upc.center.platform.card.domain.model.aggregates.Card;
 import pe.edu.upc.center.platform.card.domain.model.queries.GetAllCardsQuery;
 import pe.edu.upc.center.platform.card.domain.model.queries.GetCardByCardNumberQuery;
 import pe.edu.upc.center.platform.card.domain.model.queries.GetCardByIdQuery;
-import pe.edu.upc.center.platform.card.domain.model.queries.GetCardByUserId;
+import pe.edu.upc.center.platform.card.domain.model.queries.GetCardByProfileId;
 import pe.edu.upc.center.platform.card.domain.services.CardQueryService;
 import pe.edu.upc.center.platform.card.infrastructure.persistence.jpa.repositories.CardRepository;
 
@@ -37,7 +37,7 @@ public class CardQueryServiceImpl implements CardQueryService {
     }
 
     @Override
-    public Optional<List<Card>> handle(GetCardByUserId query) {
-        return this.cardRepository.getAllByUserId(query.userId());
+    public Optional<List<Card>> handle(GetCardByProfileId query) {
+        return this.cardRepository.getAllByProfileId(query.profileId());
     }
 }

@@ -19,7 +19,7 @@ import java.util.List;
  * This class is a REST controller that exposes the users resource.
  * It includes the following operations:
  * - GET /api/v1/users: returns all the users
- * - GET /api/v1/users/{userId}: returns the user with the given id
+ * - GET /api/v1/users/{profileId}: returns the user with the given id
  **/
 @RestController
 @RequestMapping(value = "/api/v1/users", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,7 +56,7 @@ public class UsersController {
    * @throws RuntimeException if the user is not found
    * @see UserResource
    */
-  @GetMapping(value = "/{userId}")
+  @GetMapping(value = "/{profileId}")
   public ResponseEntity<UserResource> getUserById(@PathVariable Long userId) {
     var getUserByIdQuery = new GetUserByIdQuery(userId);
     var user = userQueryService.handle(getUserByIdQuery);

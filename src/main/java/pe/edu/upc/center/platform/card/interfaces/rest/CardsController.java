@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.center.platform.card.domain.model.commands.DeleteCardCommand;
 import pe.edu.upc.center.platform.card.domain.model.queries.GetAllCardsQuery;
 import pe.edu.upc.center.platform.card.domain.model.queries.GetCardByIdQuery;
-import pe.edu.upc.center.platform.card.domain.model.queries.GetCardByUserId;
+import pe.edu.upc.center.platform.card.domain.model.queries.GetCardByProfileId;
 import pe.edu.upc.center.platform.card.domain.services.CardCommandService;
 import pe.edu.upc.center.platform.card.domain.services.CardQueryService;
 import pe.edu.upc.center.platform.card.interfaces.rest.resources.CardResource;
@@ -73,10 +73,11 @@ public class CardsController {
         return ResponseEntity.ok(cardResource);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<CardResource>> getCardByUserId(@PathVariable Long userId) {
-        var getCardByIdQuery = new GetCardByUserId(userId);
+    @GetMapping("/{profileId}")
+    public ResponseEntity<List<CardResource>> getCardByUserId(@PathVariable Long profileId) {
+        var getCardByIdQuery = new GetCardByProfileId(profileId);
         var optionalCard = this.cardQueryService.handle(getCardByIdQuery);
+
         if(optionalCard.isEmpty()){
             return ResponseEntity.badRequest().build();
         }

@@ -13,6 +13,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     boolean existsByCardNumber(CardNumber cardNumber);
     boolean existsByCardNumberAndIdIsNot(CardNumber cardNumber, Long id);
     Optional<Card> findByCardNumber(CardNumber cardNumber);
-    Optional<List<Card>> getAllByUserId(Long userId);
+    Optional<List<Card>> getAllByProfileId(Long profileId);
 }
 
