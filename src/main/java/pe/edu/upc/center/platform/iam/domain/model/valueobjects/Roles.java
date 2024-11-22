@@ -1,6 +1,7 @@
 package pe.edu.upc.center.platform.iam.domain.model.valueobjects;
 
 public enum Roles {
-    TUTOR,
-    CAREGIVER,
+  ROLE_USER,
+  ROLE_TUTOR,
+  ROLE_CAREGIVER
 }

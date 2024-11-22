@@ -34,49 +34,48 @@ import pe.edu.upc.center.platform.iam.interfaces.rest.transform.UserResourceFrom
 @Tag(name = "Authentication", description = "Authentication Endpoints")
 public class AuthenticationController {
 
-    private final UserCommandService userCommandService;
+  private final UserCommandService userCommandService;
 
-    public AuthenticationController(UserCommandService userCommandService) {
-        this.userCommandService = userCommandService;
+  public AuthenticationController(UserCommandService userCommandService) {
+    this.userCommandService = userCommandService;
+  }
+
+  /**
+   * Handles the sign-in request.
+   * @param signInResource the sign-in request body.
+   * @return the authenticated user resource.
+   */
+  @PostMapping("/sign-in")
+  public ResponseEntity<AuthenticatedUserResource> signIn(
+      @RequestBody SignInResource signInResource) {
+
+    var signInCommand = SignInCommandFromResourceAssembler
+        .toCommandFromResource(signInResource);
+    var authenticatedUser = userCommandService.handle(signInCommand);
+    if (authenticatedUser.isEmpty()) {
+      return ResponseEntity.notFound().build();
     }
 
-    /**
-     * Handles the sign-in request.
-     * @param signInResource the sign-in request body.
-     * @return the authenticated user resource.
-     */
-    @PostMapping("/sign-in")
-    public ResponseEntity<AuthenticatedUserResource> signIn(
-            @RequestBody SignInResource signInResource) {
+    var authenticatedUserResource = AuthenticatedUserResourceFromEntityAssembler
+        .toResourceFromEntity(
+            authenticatedUser.get().getLeft(), authenticatedUser.get().getRight());
+    return ResponseEntity.ok(authenticatedUserResource);
+  }
 
-        var signInCommand = SignInCommandFromResourceAssembler
-                .toCommandFromResource(signInResource);
-        var authenticatedUser = userCommandService.handle(signInCommand);
-        if (authenticatedUser.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        var authenticatedUserResource = AuthenticatedUserResourceFromEntityAssembler
-                .toResourceFromEntity(
-                        authenticatedUser.get().getLeft(), authenticatedUser.get().getRight());
-        return ResponseEntity.ok(authenticatedUserResource);
+  /**
+   * Handles the sign-up request.
+   * @param signUpResource the sign-up request body.
+   * @return the created user resource.
+   */
+  @PostMapping("/sign-up")
+  public ResponseEntity<UserResource> signUp(@RequestBody SignUpResource signUpResource) {
+    var signUpCommand = SignUpCommandFromResourceAssembler
+        .toCommandFromResource(signUpResource);
+    var user = userCommandService.handle(signUpCommand);
+    if (user.isEmpty()) {
+      return ResponseEntity.badRequest().build();
     }
-
-    /**
-     * Handles the sign-up request.
-     * @param signUpResource the sign-up request body.
-     * @return the created user resource.
-     */
-    @PostMapping("/sign-up")
-    public ResponseEntity<UserResource> signUp(@RequestBody SignUpResource signUpResource) {
-        var signUpCommand = SignUpCommandFromResourceAssembler
-                .toCommandFromResource(signUpResource);
-        var user = userCommandService.handle(signUpCommand);
-        if (user.isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-        var userResource = UserResourceFromEntityAssembler.toResourceFromEntity(user.get());
-        return new ResponseEntity<>(userResource, HttpStatus.CREATED);
-    }
+    var userResource = UserResourceFromEntityAssembler.toResourceFromEntity(user.get());
+    return new ResponseEntity<>(userResource, HttpStatus.CREATED);
+  }
 }
-

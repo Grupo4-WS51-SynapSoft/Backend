@@ -22,24 +22,24 @@ import java.util.List;
 @Tag(name = "Roles", description = "Role Management Endpoints")
 public class RolesController {
 
-    private final RoleQueryService roleQueryService;
+  private final RoleQueryService roleQueryService;
 
-    public RolesController(RoleQueryService roleQueryService) {
-        this.roleQueryService = roleQueryService;
-    }
+  public RolesController(RoleQueryService roleQueryService) {
+    this.roleQueryService = roleQueryService;
+  }
 
-    /**
-     * Get all roles
-     * @return List of role resources
-     * @see RoleResource
-     */
-    @GetMapping
-    public ResponseEntity<List<RoleResource>> getAllRoles() {
-        var getAllRolesQuery = new GetAllRolesQuery();
-        var roles = roleQueryService.handle(getAllRolesQuery);
-        var roleResources = roles.stream()
-                .map(RoleResourceFromEntityAssembler::toResourceFromEntity)
-                .toList();
-        return ResponseEntity.ok(roleResources);
-    }
+  /**
+   * Get all roles
+   * @return List of role resources
+   * @see RoleResource
+   */
+  @GetMapping
+  public ResponseEntity<List<RoleResource>> getAllRoles() {
+    var getAllRolesQuery = new GetAllRolesQuery();
+    var roles = roleQueryService.handle(getAllRolesQuery);
+    var roleResources = roles.stream()
+        .map(RoleResourceFromEntityAssembler::toResourceFromEntity)
+        .toList();
+    return ResponseEntity.ok(roleResources);
+  }
 }
